@@ -45,6 +45,33 @@ function pickMostViewed($db_link){
 		return false;
 }
 
+
+function pickCategory($db_link){
+	$selectAllCategories = "SELECT  ps.paper_name as paperName, COUNT(ps.paper_name) as 
+	paperCount FROM `past_papers` as ps GROUP BY ps.paper_name  ORDER BY ps.paper_name ASC;";
+
+	$selectPaper = mysqli_query($db_link, $selectAllCategories);
+
+	if(mysqli_num_rows($selectPaper) > 0){
+		return $selectPaper;
+	}else{
+		return false;
+	}
+}
+
+function pickAllPapersByCategory($db_link, $paperCategory){
+	$selectAllCategories = "SELECT * FROM `past_papers` as ps WHERE ps.paper_name = '$paperCategory' ORDER BY ps.paper_year DESC;";
+
+	$selectPaper = mysqli_query($db_link, $selectAllCategories);
+
+	if(mysqli_num_rows($selectPaper) > 0){
+		return $selectPaper;
+	}else{
+		return false;
+	}
+}
+
+
 function searchForPastPaper($db_link, $search_query){
 	$search_paper = "SELECT * FROM past_papers WHERE paper_name LIKE '%$search_query%' OR paper_year LIKE '%$search_query%'";
 	$check_paper_query = mysqli_query($db_link, $search_paper);
