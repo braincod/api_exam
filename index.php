@@ -115,59 +115,59 @@
 
 				break;
 
-				case 'paperCategory':
+			case 'paperCategory':
 
-					$getCategories = pickCategory($db_link);
-					if(!$getCategories){
-							# code...
-							$response['error'] = true;
-							$response['top_past_papers'] = 'System has no papers';
-					}else{
-						$paperCatogory = array();
-
-						while($rows = mysqli_fetch_assoc($getCategories)){
-							$internalArray = array();
-							$internalArray['paperName'] = $rows['paperName'];
-							$internalArray['paperCount'] = $rows['paperCount'];
-							array_push($paperCatogory, $internalArray);
-						}
+				$getCategories = pickCategory($db_link);
+				if(!$getCategories){
 						# code...
-						$response['error'] = false;
-						$response['paperCatory'] = $paperCatogory;
-						
+						$response['error'] = true;
+						$response['top_past_papers'] = 'System has no papers';
+				}else{
+					$paperCatogory = array();
+
+					while($rows = mysqli_fetch_assoc($getCategories)){
+						$internalArray = array();
+						$internalArray['paperName'] = $rows['paperName'];
+						$internalArray['paperCount'] = $rows['paperCount'];
+						array_push($paperCatogory, $internalArray);
 					}
+					# code...
+					$response['error'] = false;
+					$response['paperCategory'] = $paperCatogory;
+					
+				}
+
+
+				break;
+
+			case 'paperBasedOnCategory':
+				isTheseParametersAvailable(array('paperName'));
+				$paperName = mysqli_real_escape_string($db_link, $_POST['paperName']);
+
+				$getCategories = pickAllPapersByCategory($db_link, $paperName);
+				if(!$getCategories){
+						# code...
+						$response['error'] = true;
+						$response['top_past_papers'] = 'System has no papers';
+				}else{
+					$paperCatogory = array();
+
+					while($rows = mysqli_fetch_assoc($getCategories)){
+						$internalArray = array();
+						$internalArray['pp_id'] = $rows['pp_id'];
+						$internalArray['paper_name'] = $rows['paper_name'];
+						$internalArray['paper_year'] = $rows['paper_year'];
+						$internalArray['paper_url'] = "past_paper/".$rows['paper_url'];
+						array_push($paperCatogory, $internalArray);
+					}
+					# code...
+					$response['error'] = false;
+					$response['pastPapers'] = $paperCatogory;
+					
+				}
 
 
 					break;
-
-				case 'paperBasedOnCategory':
-					isTheseParametersAvailable(array('paperName'));
-					$paperName = mysqli_real_escape_string($db_link, $_POST['paperName']);
-
-					$getCategories = pickAllPapersByCategory($db_link, $paperName);
-					if(!$getCategories){
-							# code...
-							$response['error'] = true;
-							$response['top_past_papers'] = 'System has no papers';
-					}else{
-						$paperCatogory = array();
-
-						while($rows = mysqli_fetch_assoc($getCategories)){
-							$internalArray = array();
-							$internalArray['pp_id'] = $rows['pp_id'];
-							$internalArray['paper_name'] = $rows['paper_name'];
-							$internalArray['paper_year'] = $rows['paper_year'];
-							$internalArray['paper_url'] = "past_paper/".$rows['paper_url'];
-							array_push($paperCatogory, $internalArray);
-						}
-						# code...
-						$response['error'] = false;
-						$response['pastPapers'] = $paperCatogory;
-						
-					}
-	
-	
-						break;
 			
 				case 'topTen':
 				$topTen = pickMostViewed($db_link);
@@ -224,7 +224,7 @@
 				}
 
 				break;
-			default:
+			default: 
 				# code...
 				break;
 		}
