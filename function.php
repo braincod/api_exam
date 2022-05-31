@@ -95,17 +95,14 @@ function uploadPapersToServer($db_link, $paper_name, $paper_year, $file, $temp_f
 		return "PAU";
 	}else{
 		// save the pdf to 
-		echo $file;
 		$targetDir = "../past_paper/";
 		$target = $targetDir.basename($file);
 
 		// rename 
 		$getCurrentName = explode(".", $file);
-		echo $getCurrentName[1]."<br>";
 		$setNewName = str_replace(
-			str_split('*?" "\'.<>|'), "-", $paper_name)."-".$paper_year.'.'.end($getCurrentName);
-		echo $target."<br>";
-		echo $setNewName."<br>";
+			str_split('*?" "\'.<>|'), "_", $paper_name)."_".$paper_year.'.'.end($getCurrentName);
+	
 		$target = $targetDir.$setNewName;
 
 

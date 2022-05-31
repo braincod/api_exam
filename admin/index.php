@@ -19,7 +19,6 @@
 
 		// function call
 		$fucCall = uploadPapersToServer($db_link, $paper_entry, $paper_intake, $file, $temp);
-		echo $fucCall;
 		if ($fucCall === "PAU") {
 			echo "<script> swal ( 'warning',
                 'Sorry, Paper Already Exisits',
