@@ -50,10 +50,9 @@ if($getParam == 'allPupils'){
     $pdf->Cell(40 ,5,'Full Name',1,0);
     $pdf->Cell(50 ,5,'Year(intake)',1,0);
     $pdf->Cell(60,5,'School Center',1,0);
-    $pdf->Cell(60,5,'School Name',1,0);
+    $pdf->Cell(60,5,'School Name',1,1);
    // $pdf->Cell(34,5,'Year Enrolled',1,1);//end of line
 
-    $pdf->Cell(274, 5, '',1,1);
 
 
     if(mysqli_num_rows($results) > 0){
@@ -65,7 +64,6 @@ if($getParam == 'allPupils'){
             $pdf->Cell(50, 5, ''.$getAllPupils['pupil_intake'],1,0);
             $pdf->Cell(60, 5, ''.$getAllPupils['school_center'],1,0);
             $pdf->Cell(60, 5, ''.$getAllPupils['school_name'],1,0);
-           // $pdf->Cell(34, 5, ''.$getAllPupils['yearStarted'],1,0);
             $pdf->Ln(); //print next row on a new line
 
         }
@@ -93,7 +91,7 @@ $pdf->Output();
     $pdf->Ln();
     //Query the results
 
-    $SQL = "SELECT COUNT(pupil_id), pupil_gender FROM `pupils_accounts` GROUP BY pupil_gender ORDER BY COUNT(pupil_id) DESC";
+    $SQL = "SELECT COUNT(pupil_id) as pupil_id, pupil_gender FROM `pupils_accounts` GROUP BY pupil_gender ORDER BY COUNT(pupil_id) DESC";
 
     $results = mysqli_query($db_link, $SQL);
     
@@ -101,13 +99,12 @@ $pdf->Output();
     $pdf->SetFont('Arial','B',12);
 
     $pdf->Cell(60 ,5,'Pupil ID',1,0);
-    $pdf->Cell(40 ,5,'Gender',1,0);
+    $pdf->Cell(40 ,5,'Gender',1,1);
     //$pdf->Cell(50 ,5,'Year(intake)',1,0);
     //$pdf->Cell(60,5,'School Center',1,0);
     //$pdf->Cell(60,5,'School Name',1,0);
    // $pdf->Cell(34,5,'Year Enrolled',1,1);//end of line
 
-    $pdf->Cell(274, 5, '',1,1);
     
 
    if(mysqli_num_rows($results) > 0){
@@ -116,10 +113,6 @@ $pdf->Output();
         
             $pdf->Cell(60, 5, ''.$getAllPupils['pupil_id'],1,0);
             $pdf->Cell(40, 5, ''.$getAllPupils['pupil_gender'],1,0);
-          //  $pdf->Cell(50, 5, ''.$getAllPupils['pupil_intake'],1,0);
-           // $pdf->Cell(60, 5, ''.$getAllPupils['school_center'],1,0);
-           // $pdf->Cell(60, 5, ''.$getAllPupils['school_name'],1,0);
-           // $pdf->Cell(34, 5, ''.$getAllPupils['yearStarted'],1,0);
            $pdf->Ln(); //print next row on a new line
 
         }
@@ -154,24 +147,22 @@ $pdf->Output();
     
         $pdf->SetFont('Arial','B',12);
     
-        $pdf->Cell(60 ,5,'Pupil Id',1,0);
+        $pdf->Cell(40 ,5,'Pupil Id',1,0);
         $pdf->Cell(40 ,5,'Full Names',1,0);
-        $pdf->Cell(50 ,5,'Pupil inTake',1,0);
-        $pdf->Cell(30,5,'School Center',1,0);
+        $pdf->Cell(30 ,5,'Pupil inTake',1,0);
+        $pdf->Cell(50,5,'School Center',1,0);
         $pdf->Cell(60,5,'School Name',1,0);
         $pdf->Cell(64,5,'School Location',1,1);//end of line
-    
-        $pdf->Cell(274, 5, '',1,1);
-    
+        
     
         if(mysqli_num_rows($results) > 0){
     
             while($getAllPupils = mysqli_fetch_assoc($results)){
     
-                $pdf->Cell(60, 5, ''.$getAllPupils['pupil_id'],1,0);
+                $pdf->Cell(40, 5, ''.$getAllPupils['pupil_id'],1,0);
                 $pdf->Cell(40, 5, ''.$getAllPupils['pupil_name'],1,0);
-                $pdf->Cell(50, 5, ''.$getAllPupils['pupil_intake'],1,0);
-                $pdf->Cell(30, 5, ''.$getAllPupils['school_center'],1,0);
+                $pdf->Cell(30, 5, ''.$getAllPupils['pupil_intake'],1,0);
+                $pdf->Cell(50, 5, ''.$getAllPupils['school_center'],1,0);
                 $pdf->Cell(60, 5, ''.$getAllPupils['school_name'],1,0);
                 $pdf->Cell(64, 5, ''.$getAllPupils['school_location'],1,0);
                 $pdf->Ln(); //print next row on a new line
