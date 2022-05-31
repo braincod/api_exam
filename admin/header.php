@@ -53,7 +53,7 @@
                 <a href="#submenu3" data-toggle="collapse"><i class="fa fa-fw fa-angle-right"></i> REPORTS</a>
                 <ul id="submenu3" class="list-unstyled collapse">
                     <li><a href="performance.php">Performance</a></li>
-                    <li><a href="Pupil_Report.php">Reports</a></li>
+                    <li><a href="reports.php">Reports</a></li>
                
                 </ul>
             </li>              

@@ -43,12 +43,16 @@
 		$pupil_intake = mysqli_real_escape_string($db_link, $_POST['pupil_intake']);
 		$pupil_password = mysqli_real_escape_string($db_link, $_POST['pupil_password']);
 		$pupil_id = mysqli_real_escape_string($db_link, $_POST['pupil_id']);
+		$pupil_gender = mysqli_real_escape_string($db_link, $_POST['pupil_gender']);
+		$pupil_address = mysqli_real_escape_string($db_link, $_POST['pupil_address']);
 
 		$pupil_array = array('pupil_id' => $pupil_id,
 							 'pupil_name' => $pupil_name, 
 							 'pupil_school' => $pupil_school,
 							 'pupil_intake' => $pupil_intake,
-							 'pupil_password' => $pupil_password
+							 'pupil_password' => $pupil_password,
+							 'pupil_gender' => $pupil_gender,
+							 'pupil_address' => $pupil_address
 							);
 		$acc = addPupilToServer($db_link, $pupil_array);
 		echo $acc;
@@ -76,8 +80,9 @@
 		$school_id = mysqli_real_escape_string($db_link, $_POST['school_id']);
 		$school_location = mysqli_real_escape_string($db_link, $_POST['school_location']);
         $school_district = mysqli_real_escape_string($db_link, $_POST['school_district']);
+        $school_province = mysqli_real_escape_string($db_link, $_POST['school_province']);
         
-		$backFrom = addSchool($db_link, $school_name, $school_id, $school_location, $school_district);
+		$backFrom = addSchool($db_link, $school_name, $school_id, $school_location, $school_district ,$school_province);
 
 		if ($backFrom === 'already_created') {
 			echo "Already in the system";
@@ -87,6 +92,7 @@
               )
               </script>";
 		}else if ($backFrom === true) {
+			echo "School Successfully Added";
 			echo "<script> swal ( 'Success',
                 'School Successfully Added',
                 'success'
@@ -190,6 +196,8 @@
 						<input required class="form-control" type="text" name="school_location" placeholder="School Location" /><br>
 						<label>School District</label>
 						<input required class="form-control" type="text" name="school_district" placeholder="School District" /><br>
+						<label>School Province</label>
+						<input required class="form-control" type="text" name="school_province" placeholder="School Province" /><br>
 						<input type="submit" name="submit_school" class="btn btn-primary" value="Add School" />
 					</form>
 	    		</div>
@@ -224,6 +232,10 @@
 						<input required class="form-control" type="password" name="pupil_password"placeholder="password" ><br />
 						<label>Pupil ID Number</label>
 						<input required class="form-control" type="number" name="pupil_id" placeholder="id"><br />
+						<label>Pupil Gender</label>
+						<input required class="form-control" type="text" name="pupil_gender" placeholder="gender"><br />
+						<label>Pupil Address</label>
+						<input required class="form-control" type="text" name="pupil_address" placeholder="address"><br />
 						<input class="btn btn-primary"  type="submit" name="submit_pupil" value="Add Pupil" />
 					</form>
     		</div>

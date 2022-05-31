@@ -94,7 +94,7 @@ require_once '../connection.php';
 				    ?>
 				    <hr/><br>
 				    <div class="col-md-8">
-				    	<h3 style="text-align: center;">Perfomance Graph </h3><br/>
+				    	<h3 style="text-align: center;">Perfomance Graph To Compare performace of pupils in two different years </h3><br/>
 
 				    	<br><br>
 				    	<div  id="chart"></div>
@@ -121,4 +121,4 @@ var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 	</script>
 </body>
-</html>
+</html> 

@@ -152,7 +152,7 @@ function addPupilToServer($db_link, $pupil_array_details){
 	if(checkTheID($db_link, $pupil_array_details['pupil_id'])){
 		return "already_created";
 	}else{
-		$insert = "INSERT INTO pupils_accounts (pupil_id, pupil_name, pupil_school, pupil_intake, pupil_password) VALUES ('".$pupil_array_details['pupil_id']."', '".$pupil_array_details['pupil_name']."', '".$pupil_array_details['pupil_school']."', '".$pupil_array_details['pupil_intake']."', '".$pupil_array_details['pupil_password']."') ";
+		$insert = "INSERT INTO pupils_accounts (pupil_id, pupil_name, pupil_school, pupil_intake, pupil_password ,pupil_gender, pupil_address) VALUES ('".$pupil_array_details['pupil_id']."', '".$pupil_array_details['pupil_name']."', '".$pupil_array_details['pupil_school']."', '".$pupil_array_details['pupil_intake']."', '".$pupil_array_details['pupil_password']."','".$pupil_array_details['pupil_gender']."','".$pupil_array_details['pupil_address']."') ";
 
 		if (mysqli_query($db_link, $insert)) {
 			# code...
@@ -174,12 +174,12 @@ function checkTheID($db_link, $pupil_id){
 	}
 }
 
-function addSchool($db_link, $school_name, $school_centre_id, $school_location,$school_district){
+function addSchool($db_link, $school_name, $school_centre_id, $school_location,$school_district,$school_province){
 
 	if (checkSchoolCentre($db_link, $school_centre_id)) {
 		return "already_created";
 	}else{
-		$schoolInform = "INSERT INTO schools (school_center, school_name, school_location, school_district) VALUES ('$school_centre_id', '$school_name', '$school_location','$school_district')";
+		$schoolInform = "INSERT INTO schools (school_center, school_name, school_location, school_district ,school_province) VALUES ('$school_centre_id', '$school_name', '$school_location','$school_district','$school_province')";
 		if (mysqli_query($db_link, $schoolInform)) {
 			# code...
 			return true;
