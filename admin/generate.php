@@ -186,7 +186,7 @@ $pdf->Output();
         $pdf->Ln();
         $pdf->Ln();
         $pdf->SetFont('Arial','B',18);
-        $pdf->Cell(290,5,'De Progress Primary ',0,0,'C');
+        $pdf->Cell(290,5,' ',0,0,'C');
         $pdf->Ln();
         $pdf->Ln();
         $pdf->Cell(290,5,'All '.strtoupper($reason).' PUPILS REPORT ',0,0,'C');
@@ -195,7 +195,7 @@ $pdf->Output();
         $pdf->Ln();
         //Query the results
     
-        if($reason == 'active'){
+        if($reason == 'passed'){
 
             $SQL = "SELECT * FROM pupil, parent WHERE pupil.parentID = parent.parentID AND pupil.activeStatus = 'active' 
                         ORDER BY yearStarted ASC " ;
@@ -229,7 +229,7 @@ $pdf->Output();
             }
 
 
-        } else if($reason == 'suspended'){
+        } else if($reason == 'failed'){
 
             $SQL = "SELECT * FROM pupil, parent, reasons WHERE pupil.parentID = parent.parentID AND 
             pupil.pupilID = reasons.pupilID AND reasons.reason = '$reason' AND pupil.activeStatus = '$reason' 
@@ -265,7 +265,7 @@ $pdf->Output();
 
 
 
-        } else if ($reason == 'No Progress'){
+        } else if ($reason == 'subjects'){
             $SQL = "SELECT * FROM pupil, parent, reasons WHERE pupil.parentID = parent.parentID AND 
             pupil.pupilID = reasons.pupilID AND reasons.reason = '$reason' AND pupil.activeStatus = '$reason' 
                         ORDER BY yearStarted ASC " ;
@@ -297,7 +297,7 @@ $pdf->Output();
         
                 }
             }
-        } else if ($reason == 'transfer'){
+        } else if ($reason == 'schools'){
 
         }
 
