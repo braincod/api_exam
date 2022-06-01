@@ -24,7 +24,7 @@ if($getParam == 'allPupils'){
     // $pdf->
     $pdf->Ln();
     $pdf->SetFont('Arial','',10);
-    $pdf->Cell(270,5,'All pupils available in  ',0,0,'C');
+    $pdf->Cell(270,5,'All pupils available s  ',0,0,'C');
      
     $pdf->Ln();
     $pdf->Ln();
@@ -98,7 +98,7 @@ $pdf->Output();
 
     $pdf->SetFont('Arial','B',12);
 
-    $pdf->Cell(60 ,5,'Pupil ID',1,0);
+    $pdf->Cell(60 ,5,'Total',1,0);
     $pdf->Cell(40 ,5,'Gender',1,1);
     //$pdf->Cell(50 ,5,'Year(intake)',1,0);
     //$pdf->Cell(60,5,'School Center',1,0);

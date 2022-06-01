@@ -70,10 +70,11 @@ require_once '../navbar_header.php';
                                 <option id="summaryReport" value="summaryReport"> summary</option>
                                 <option id="allPupils" value="allPupils"> All Pupils</option>
                                 <option id="inTake" value="inTake"> All Pupils in an Intake </option>
-                                <option id="yearAndGrade" value="yearAndGrade"> All Pupils in a School </option>
-                                <option id="complex" value="complex"> All Pupils that are </option>
-
-                                <option id="endofyear" value="endofyear"> End of Year Report</option>
+                                <option id="district" value="District">schools by district</option>
+                              <!--    <option id="yearAndGrade" value="yearAndGrade"> </option>--->
+                                <option id="complex" value="complex"> Pupil Performance By</option>
+ <!-- 
+                                <option id="endofyear" value="endofyear"> </option>
 
                                 <!-- <option id="singlePupil" value="singlePupil">Single Pupil Tracking</option> -->
                                 
@@ -134,10 +135,10 @@ require_once '../navbar_header.php';
                         <div class="col-sm-12" id="hidden_reason" style="display: none;">
                         <label>Reason Type </label>
                         <select class="form-control" name="reasonType" >
-                            <option value="active">Active</option>
-                            <option value="suspended">Suspended</option>
-                            <option value="No Progress">No Progress</option>
-                            <option value="transfer">Transfer</option>                               
+                            <option value="passed">Pass</option>
+                            <option value="failed">Fail</option>
+                            <option value="subjects">intake</option>
+                            <option value="school">Province</option>                               
                         </select>
                     </div>  
 
