@@ -70,32 +70,12 @@ require_once '../navbar_header.php';
                                 <option id="summaryReport" value="summaryReport"> summary</option>
                                 <option id="allPupils" value="allPupils"> All Pupils</option>
                                 <option id="inTake" value="inTake"> All Pupils in an Intake </option>
-                                <option id="district" value="District">schools by district</option>
-                              <!--    <option id="yearAndGrade" value="yearAndGrade"> </option>--->
+                                <!-- <option id="district" value="District">schools by district</option> -->
                                 <option id="complex" value="complex"> Pupil Performance By</option>
- <!-- 
-                                <option id="endofyear" value="endofyear"> </option>
-
-                                <!-- <option id="singlePupil" value="singlePupil">Single Pupil Tracking</option> -->
-                                
                             </select>
                         </div>
 
-                        <div class="col-sm-12" id="hidden_grade" style="display: none;">
-                        <label>inTake </label>
-                        <select class="form-control" name="pupil_intake" >
-                            <option value="2014">2014</option>
-                            <option value="2015">2015</option>
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                                
-                        </select>
-                    </div> 
+                   
 
                     <div class="col-sm-12" id="hidden_year" style="display: none;">
                         <label>Year Between</label><br>
@@ -132,15 +112,30 @@ require_once '../navbar_header.php';
                     </div>
                         <br>
 
-                        <div class="col-sm-12" id="hidden_reason" style="display: none;">
-                        <label>Reason Type </label>
+                    <div class="col-sm-12" id="hidden_reason" style="display: none;">
+                        <label>Performance </label>
                         <select class="form-control" name="reasonType" >
-                            <option value="passed">Pass</option>
-                            <option value="failed">Fail</option>
+                            <option value="passedFailed">Pass Against Failed</option>
                             <option value="subjects">intake</option>
                             <option value="school">Province</option>                               
                         </select>
                     </div>  
+
+                    <div class="col-sm-12" id="hidden_grade" style="display: none;">
+                        <label>inTake </label>
+                        <select class="form-control" name="pupil_intake" >
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                                
+                        </select>
+                    </div> 
 
                     <div class="col-sm-12" id="hidden_individual" style="display: none;">
                       <!--Add php to get all Students from the database  -->
@@ -246,7 +241,7 @@ require_once '../navbar_header.php';
 
 
             }else if(select.value == 'complex' || select.value == 'All Pupils that are'){
-                document.getElementById('hidden_grade').style.display = "none";
+                document.getElementById('hidden_grade').style.display = "block";
                 document.getElementById('hidden_year').style.display = "none";
                 document.getElementById('hidden_reason').style.display = "block";
                 document.getElementById('hidden_individual').style.display = "none";

@@ -180,7 +180,7 @@ $pdf->Output();
         
         $pdf->Ln();
         $pdf->SetFont('Arial','',10);
-        $pdf->Cell(270,5,'All '.strtoupper($reason).' PUPILS REPORT ',0,0,'R');
+        $pdf->Cell(270,5,'REPORT ',0,0,'R');
         $pdf->Ln();
         $pdf->Ln();
         $pdf->Ln();
@@ -189,44 +189,42 @@ $pdf->Output();
         $pdf->Cell(290,5,' ',0,0,'C');
         $pdf->Ln();
         $pdf->Ln();
-        $pdf->Cell(290,5,'All '.strtoupper($reason).' PUPILS REPORT ',0,0,'C');
-        
-        $pdf->Ln();
-        $pdf->Ln();
+       
         //Query the results
     
-        if($reason == 'passed'){
+        if($reason == 'passedFailed'){
+            $intake = $_POST['pupil_intake'];
 
+            $pdf->Cell(290,5,'All Passed Failed For Intake '.$intake.'  Pupils REPORT ',0,0,'C');
+        
+            $pdf->Ln();
+            $pdf->Ln();
             $SQL = "SELECT * FROM pupil, parent WHERE pupil.parentID = parent.parentID AND pupil.activeStatus = 'active' 
                         ORDER BY yearStarted ASC " ;
-            $results = mysqli_query($db_link, $SQL);
+
+            $SQLPassedPupils = "SELECT COUNT(*) as TotalPassedStudent FROM results WHERE results.subject_grade < 7 and results.intake = '$intake' ";
+            $SQLFailedPupils = "SELECT COUNT(*) as TotalFailedStudent FROM results WHERE results.subject_grade > 6 and results.intake = '$intake' ";
+            $resultsPassed = mysqli_query($db_link, $SQLPassedPupils);
+            $resultsFailed = mysqli_query($db_link, $SQLFailedPupils);
         
             $pdf->SetFont('Arial','B',12);
+            $pdf->Cell(40 ,5,'',0,0);
+            $pdf->Cell(40,5,'',0,0);
+            $pdf->Cell(70 ,5,'TOTAL PUPILS PASSED',1,0);
+            $pdf->Cell(60 ,5,'TOTAL PUPILS FAILED',1,0);
+            $pdf->Cell(30,5,'',0,0);
+            $pdf->Cell(34,5,'',0,1);//end of line
         
-            $pdf->Cell(60 ,5,'Full Name',1,0);
-            $pdf->Cell(40 ,5,'Date of Birth',1,0);
-            $pdf->Cell(50 ,5,'Parent Name',1,0);
-            $pdf->Cell(60,5,'Address',1,0);
-            $pdf->Cell(30,5,'Grade',1,0);
-            $pdf->Cell(34,5,'Year Enrolled',1,1);//end of line
-        
-            $pdf->Cell(274, 5, '',1,1);
-            // $pdf->Ln();
-        
-            if(mysqli_num_rows($results) > 0){
-        
-                while($getAllPupils = mysqli_fetch_assoc($results)){
-        
-                    $pdf->Cell(60, 5, ''.$getAllPupils['pupilName'],1,0);
-                    $pdf->Cell(40, 5, ''.$getAllPupils['dateOfBirth'],1,0);
-                    $pdf->Cell(50, 5, ''.$getAllPupils['parentName'],1,0);
-                    $pdf->Cell(60, 5, ''.$getAllPupils['address'],1,0);
-                    $pdf->Cell(30, 5, ''.$getAllPupils['grade'],1,0);
-                    $pdf->Cell(34, 5, ''.$getAllPupils['yearStarted'],1,0);
-                    $pdf->Ln(); //print next row on a new line
-        
-                }
-            }
+            $getAllPassed = mysqli_fetch_assoc($resultsPassed);
+            $getAllFailed = mysqli_fetch_assoc($resultsFailed);
+            $pdf->SetFont('Arial','B',12);
+            $pdf->Cell(40 ,5,'',0,0);
+            $pdf->Cell(40,5,'',0,0);
+            $pdf->Cell(70 ,5,$getAllPassed['TotalPassedStudent'],1,0);
+            $pdf->Cell(60 ,5,$getAllFailed['TotalFailedStudent'],1,0);
+            $pdf->Cell(30,5,'',0,0);
+            $pdf->Cell(34,5,'',0,1);//end of line
+      
 
 
         } else if($reason == 'failed'){
@@ -297,8 +295,45 @@ $pdf->Output();
         
                 }
             }
-        } else if ($reason == 'schools'){
+        } else if ($reason == 'school'){
+            $intake = $_POST['pupil_intake'];
+            $pdf->Cell(290,5,'Pupil Report By Province Performance, Intake '.$intake.'  ',0,0,'C');
+        
+            $pdf->Ln();
+            $pdf->Ln();
+            $SQL = "SELECT * FROM pupil, parent WHERE pupil.parentID = parent.parentID AND pupil.activeStatus = 'active' 
+                        ORDER BY yearStarted ASC " ;
 
+            $SQLProvince = "SELECT s.school_province, 
+                                (SELECT COUNT(*) as TotalPassedStudent FROM results
+                                 WHERE results.subject_grade < 7 and results.intake = '$intake' 
+                                 and results.school_center = r.school_center) as Passed, 
+                                 (SELECT COUNT(*) as TotalPassedStudent FROM results 
+                                 WHERE results.subject_grade > 6 and results.intake = '$intake' 
+                                 and results.school_center = r.school_center ) as Failed 
+                                 FROM results r, schools s 
+                                WHERE r.intake = '$intake' and s.school_center = r.school_center 
+                                GROUP BY s.school_province;";
+            $resultProvince = mysqli_query($db_link, $SQLProvince);
+            $pdf->SetFont('Arial','B',12);
+            $pdf->Cell(40 ,5,'',0,0);
+            $pdf->Cell(70,5,'PROVINCE NAME',1,0);
+            $pdf->Cell(60 ,5,'TOTAL PUPILS PASSED',1,0);
+            $pdf->Cell(60 ,5,'TOTAL PUPILS FAILED',1,0);
+            $pdf->Cell(30,5,'',0,0);
+            $pdf->Cell(34,5,'',0,1);//end of line
+        
+
+            $pdf->SetFont('Arial','B',12);
+
+            while($fetchData = mysqli_fetch_assoc($resultProvince)){
+                $pdf->Cell(40 ,5,'',0,0);
+                $pdf->Cell(70,5,''.$fetchData['school_province'],1,0);
+                $pdf->Cell(60 ,5,''.$fetchData['Passed'],1,0);
+                $pdf->Cell(60 ,5,''.$fetchData['Failed'],1,0);
+                $pdf->Cell(30,5,'',0,0);
+                $pdf->Cell(34,5,'',0,1);//end of line
+            }
         }
 
 
